@@ -1,0 +1,15 @@
+{
+  "name": "moa",
+  "version": "0.1.0",
+  "description": "MOA — 해외 거주 한국인 사업자를 위한 통합 홍보 관리 대시보드",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "better-sqlite3": "^12.11.1",
+    "express": "^5.2.1"
+  }
+}
