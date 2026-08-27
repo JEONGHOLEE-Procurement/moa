@@ -1,0 +1,172 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MOA 대시보드</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="moa.css">
+<style>
+.app{display:flex;min-height:100vh}
+/* 사이드바 */
+.sidebar{width:240px;flex:0 0 240px;background:var(--surface);border-right:1px solid var(--line);
+  position:fixed;top:0;bottom:0;left:0;display:flex;flex-direction:column;padding:20px 14px;z-index:40}
+.sb-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;padding:6px 10px 18px;letter-spacing:-.5px}
+.sb-logo .m{width:32px;height:32px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--mint));
+  display:grid;place-items:center;color:#fff;font-size:16px;font-weight:900}
+.nav-i{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;font-size:14.5px;
+  font-weight:600;color:var(--ink-2);cursor:pointer;transition:.14s;margin-bottom:2px}
+.nav-i:hover{background:var(--surface-3);color:var(--ink)}
+.nav-i.active{background:var(--primary-050);color:var(--primary)}
+.nav-i .ico{width:20px;text-align:center;font-size:16px}
+.nav-i .cnt{margin-left:auto;background:var(--primary);color:#fff;font-size:11px;font-weight:700;
+  min-width:18px;height:18px;padding:0 5px;border-radius:9px;display:grid;place-items:center}
+.nav-i.active .cnt{background:var(--primary)}
+.sb-biz{margin-top:auto;background:var(--surface-2);border-radius:14px;padding:12px;display:flex;gap:10px;align-items:center}
+.sb-biz .av{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,#F58529,#DD2A7B);
+  display:grid;place-items:center;font-size:18px;flex:0 0 auto}
+.sb-biz .nm{font-size:13.5px;font-weight:700;line-height:1.3}
+.sb-biz .ty{font-size:11.5px;color:var(--ink-3)}
+
+/* 메인 */
+.main{flex:1;margin-left:240px;min-width:0}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(233,233,240,.82);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);padding:16px 30px;display:flex;align-items:center;justify-content:space-between}
+.topbar h1{font-size:22px;font-weight:800;letter-spacing:-.6px}
+.topbar .sub{font-size:13px;color:var(--ink-3);margin-top:2px}
+.top-actions{display:flex;gap:10px;align-items:center}
+.content{padding:26px 30px 60px;max-width:1240px}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:20px}
+.kpi{background:var(--surface);border-radius:var(--r-md);padding:16px 18px;box-shadow:var(--shadow)}
+.kpi .l{font-size:12.5px;color:var(--ink-3);font-weight:600;margin-bottom:8px;display:flex;gap:6px;align-items:center}
+.kpi .v{font-size:26px;font-weight:800;letter-spacing:-.8px}
+.kpi .d{font-size:12px;font-weight:700;margin-top:4px}
+.up{color:var(--ok)} .down{color:var(--danger)}
+
+.row{display:grid;gap:18px}
+.row.c2{grid-template-columns:1.5fr 1fr}
+.row.c2b{grid-template-columns:1fr 1.3fr}
+
+/* 생산성 패널 */
+.prodp{background:linear-gradient(125deg,var(--primary),#8B7CF6);color:#fff;border-radius:var(--r-lg);padding:22px}
+.prodp .h{font-size:13.5px;opacity:.9;font-weight:600}
+.prodp .big{font-size:44px;font-weight:800;letter-spacing:-1.5px;margin:4px 0 14px}
+.prodp .big span{font-size:20px}
+.prodp .part{display:flex;justify-content:space-between;font-size:13px;padding:7px 0;border-top:1px solid rgba(255,255,255,.18)}
+.prodp .part b{font-weight:700}
+
+/* 채널 성과 */
+.chrow{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.chrow:last-child{border:none}
+.chrow .info{flex:1;min-width:0}
+.chrow .hd{font-size:13.5px;font-weight:700}
+.chrow .sub{font-size:11.5px;color:var(--ink-3)}
+.chrow .foll{text-align:right}
+.chrow .foll .n{font-size:15px;font-weight:800}
+.chrow .foll .g{font-size:11.5px;font-weight:700}
+
+/* 리스트 아이템(인박스/예약발행) */
+.li{display:flex;gap:12px;padding:12px;border-radius:12px;transition:.14s;cursor:pointer}
+.li:hover{background:var(--surface-2)}
+.li .body{flex:1;min-width:0}
+.li .top{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-3);margin-bottom:3px}
+.li .au{font-weight:700;color:var(--ink)}
+.li .tx{font-size:13.5px;line-height:1.45;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.dot{width:7px;height:7px;border-radius:50%;flex:0 0 auto}
+.dot.positive{background:var(--ok)} .dot.neutral{background:var(--ink-3)} .dot.negative{background:var(--danger)}
+.unreadmark{width:8px;height:8px;border-radius:50%;background:var(--primary);flex:0 0 auto;align-self:center}
+
+/* 채널 선택 칩 */
+.chip-select{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:flex;align-items:center;gap:7px;padding:8px 13px;border-radius:999px;border:1.5px solid var(--line-2);
+  font-size:13px;font-weight:600;cursor:pointer;transition:.14s;background:var(--surface)}
+.chip:hover{border-color:var(--primary)}
+.chip.on{border-color:var(--primary);background:var(--primary-050);color:var(--primary)}
+.chip.off{opacity:.4;cursor:not-allowed}
+.chip .ch{width:20px;height:20px;border-radius:6px;font-size:9px}
+
+/* 이모지 픽커 */
+.emojis{display:flex;gap:6px;flex-wrap:wrap}
+.emojis button{width:38px;height:38px;border-radius:10px;font-size:19px;background:var(--surface-2);transition:.14s}
+.emojis button.on{background:var(--primary-050);box-shadow:0 0 0 2px var(--primary)}
+
+/* 세그먼트 토글 */
+.seg{display:inline-flex;background:var(--surface-2);border-radius:12px;padding:4px;gap:4px}
+.seg button{padding:8px 16px;border-radius:9px;font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.seg button.on{background:var(--surface);color:var(--primary);box-shadow:var(--shadow)}
+
+/* 미리보기 */
+.preview{background:var(--surface-2);border-radius:16px;padding:16px}
+.pv-card{background:var(--surface);border-radius:12px;padding:14px;box-shadow:var(--shadow);margin-top:10px}
+.pv-head{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.pv-emoji{width:150px;height:110px;border-radius:10px;background:var(--surface-3);display:grid;place-items:center;font-size:44px;margin:8px 0}
+
+/* 탭 필터 */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.tab{padding:8px 15px;border-radius:999px;font-size:13px;font-weight:600;color:var(--ink-2);background:var(--surface);cursor:pointer;border:1px solid transparent}
+.tab.on{background:var(--ink);color:#fff}
+.tab:not(.on):hover{border-color:var(--line-2)}
+
+/* 캘린더 */
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.cal .dow{text-align:center;font-size:12px;font-weight:700;color:var(--ink-3);padding-bottom:6px}
+.cal .cell{background:var(--surface-2);border-radius:12px;min-height:96px;padding:8px;font-size:12px}
+.cal .cell.out{opacity:.4}
+.cal .cell.today{outline:2px solid var(--primary)}
+.cal .dnum{font-weight:700;color:var(--ink-2);margin-bottom:5px}
+.cal .ev{display:flex;align-items:center;gap:5px;background:var(--surface);border-radius:8px;padding:4px 6px;margin-bottom:4px;cursor:pointer;font-size:11.5px;font-weight:600;box-shadow:var(--shadow)}
+.cal .ev.pub{border-left:3px solid var(--ok)} .cal .ev.sch{border-left:3px solid var(--primary)}
+
+/* 리뷰 분포 */
+.dist{display:flex;flex-direction:column;gap:6px}
+.dist .r{display:flex;align-items:center;gap:8px;font-size:12.5px}
+.dist .bar{flex:1;height:8px;border-radius:4px;background:var(--surface-3);overflow:hidden}
+.dist .bar i{display:block;height:100%;background:var(--warn);border-radius:4px}
+.stars{color:var(--warn);letter-spacing:1px}
+
+/* 표 */
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{text-align:left;font-size:12px;color:var(--ink-3);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line)}
+.tbl td{padding:12px;border-bottom:1px solid var(--line)}
+.tbl tr:hover td{background:var(--surface-2)}
+select.mini{width:auto;padding:6px 28px 6px 10px;font-size:12.5px;font-weight:600}
+
+/* 분석 차트 */
+.chart{width:100%;height:230px}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;margin-top:10px}
+.legend .i{display:flex;align-items:center;gap:6px}
+.legend .sw{width:12px;height:12px;border-radius:4px}
+
+/* 채널 설정 카드 */
+.chgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.chset{display:flex;align-items:center;gap:14px;background:var(--surface);border-radius:var(--r-md);padding:16px 18px;box-shadow:var(--shadow)}
+.chset .info{flex:1}
+.sw-toggle{width:46px;height:26px;border-radius:999px;background:var(--line-2);position:relative;transition:.18s;flex:0 0 auto}
+.sw-toggle.on{background:var(--primary)}
+.sw-toggle i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.18s}
+.sw-toggle.on i{left:23px}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.row.c2,.row.c2b{grid-template-columns:1fr}}
+</style></head><body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sb-logo"><span class="m">M</span> MOA</div>
+    <nav id="nav"></nav>
+    <div class="sb-biz" id="sb-biz"></div>
+  </aside>
+  <div class="main">
+    <div class="topbar">
+      <div><h1 id="pg-title">개요</h1><div class="sub" id="pg-sub"></div></div>
+      <div class="top-actions">
+        <a class="btn btn-ghost btn-sm" href="index.html">← 홈</a>
+        <button class="btn btn-primary btn-sm" onclick="go('composer')">✏️ 새 게시물</button>
+      </div>
+    </div>
+    <div class="content" id="view"><div class="spin"></div></div>
+  </div>
+</div>
+<div class="modal" id="modal"><div class="modal-card" style="position:relative"><button class="modal-x" onclick="closeModal()">✕</button><div id="modal-body"></div></div></div>
+<div class="toast" id="toast"></div>
+<script src="mock-api.js"></script>
+<script src="dashboard.js"></script>
+</body></html>

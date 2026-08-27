@@ -1,0 +1,140 @@
+<!doctype html><html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MOA — 해외 한인 사업자를 위한 통합 홍보 관리</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<script src="mock-api.js"></script>
+<link rel="stylesheet" href="moa.css">
+<style>
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.nav{position:sticky;top:0;z-index:50;background:rgba(233,233,240,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.5px}
+.logo-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--mint));
+  display:grid;place-items:center;color:#fff;font-size:17px;font-weight:900}
+.nav-links{display:flex;gap:28px;align-items:center;font-size:14.5px;font-weight:500;color:var(--ink-2)}
+.nav-links a:hover{color:var(--ink)}
+
+.hero{text-align:center;padding:78px 0 54px}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line-2);
+  padding:8px 16px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--primary);margin-bottom:26px}
+h1{font-size:60px;line-height:1.1;letter-spacing:-2.4px;font-weight:800;margin-bottom:22px}
+h1 .grad{background:linear-gradient(100deg,var(--primary),var(--mint));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:20px;color:var(--ink-2);max-width:620px;margin:0 auto 34px;line-height:1.6}
+.hero-cta{display:flex;gap:12px;justify-content:center}
+.btn-lg{padding:15px 30px;font-size:16px}
+
+.chstrip{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:44px}
+.chstrip .ch{width:46px;height:46px;border-radius:14px;font-size:15px;box-shadow:var(--shadow)}
+
+.shot{max-width:1080px;margin:52px auto 0;border-radius:26px;overflow:hidden;box-shadow:var(--shadow-lg);border:1px solid var(--line)}
+.shot img{width:100%;display:block}
+
+.section{padding:70px 0}
+.sec-h{text-align:center;margin-bottom:46px}
+.sec-h .k{font-size:14px;font-weight:700;color:var(--primary);letter-spacing:.4px}
+.sec-h h2{font-size:38px;letter-spacing:-1.2px;font-weight:800;margin:10px 0}
+.sec-h p{color:var(--ink-2);font-size:16.5px;max-width:560px;margin:0 auto}
+
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feat{background:var(--surface);border-radius:var(--r-lg);padding:26px;box-shadow:var(--shadow);transition:.18s}
+.feat:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.feat-ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:23px;margin-bottom:16px;background:var(--primary-050)}
+.feat h3{font-size:18px;font-weight:700;margin-bottom:8px;letter-spacing:-.3px}
+.feat p{color:var(--ink-2);font-size:14.5px;line-height:1.6}
+
+.biz{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.biz-card{background:var(--surface);border-radius:var(--r-md);padding:22px;text-align:center;box-shadow:var(--shadow)}
+.biz-emoji{font-size:38px;margin-bottom:10px}
+.biz-card h4{font-size:16px;font-weight:700}
+.biz-card p{font-size:13px;color:var(--ink-3);margin-top:4px}
+
+.prod{background:linear-gradient(120deg,var(--primary),#8B7CF6);border-radius:var(--r-lg);padding:52px;color:#fff;text-align:center}
+.prod .big{font-size:66px;font-weight:800;letter-spacing:-2px;line-height:1}
+.prod .big span{font-size:30px}
+.prod h2{font-size:30px;margin:6px 0 12px;letter-spacing:-1px}
+.prod p{opacity:.9;font-size:16px;max-width:520px;margin:0 auto}
+.prod-row{display:flex;gap:40px;justify-content:center;margin-top:34px;flex-wrap:wrap}
+.prod-row .item .n{font-size:30px;font-weight:800}
+.prod-row .item .l{font-size:13.5px;opacity:.85;margin-top:2px}
+
+.cta{text-align:center;padding:80px 0}
+.cta h2{font-size:40px;letter-spacing:-1.4px;font-weight:800;margin-bottom:14px}
+.cta p{color:var(--ink-2);font-size:17px;margin-bottom:28px}
+footer{border-top:1px solid var(--line);padding:34px 0;text-align:center;color:var(--ink-3);font-size:13.5px}
+
+@media(max-width:900px){.grid3,.biz{grid-template-columns:1fr 1fr}h1{font-size:42px}.nav-links{display:none}}
+</style></head><body>
+
+<nav class="nav"><div class="wrap">
+  <div class="logo"><span class="logo-mark">M</span> MOA</div>
+  <div class="nav-links">
+    <a href="#features">기능</a><a href="#biz">이런 분께</a><a href="#productivity">생산성</a>
+    <a class="btn btn-primary btn-sm" href="dashboard.html">대시보드 열기 →</a>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">🌏 해외 거주 한인 사업자를 위한 올인원 홍보 도구</div>
+  <h1>흩어진 홍보 채널을<br><span class="grad">MOA</span>에서 한 번에.</h1>
+  <p>인스타그램·유튜브·틱톡·네이버·구글·카카오까지.<br>발행, 예약, 댓글·DM, 리뷰, 예약 관리를 하나의 대시보드에서.</p>
+  <div class="hero-cta">
+    <a class="btn btn-primary btn-lg" href="dashboard.html">무료로 대시보드 둘러보기</a>
+    <a class="btn btn-ghost btn-lg" href="#features">기능 살펴보기</a>
+  </div>
+  <div class="chstrip">
+    <span class="ch instagram">IG</span><span class="ch youtube">YT</span><span class="ch tiktok">TT</span>
+    <span class="ch x">X</span><span class="ch facebook">FB</span><span class="ch naver">N</span>
+    <span class="ch google">G</span><span class="ch kakao">K</span>
+  </div>
+</div></header>
+
+<section class="section" id="features"><div class="wrap">
+  <div class="sec-h"><div class="k">ALL-IN-ONE</div><h2>여러 앱을 오갈 필요 없이</h2>
+    <p>사장님 한 명이 8개 채널을 운영해도 되도록. 반복 작업은 MOA가 대신합니다.</p></div>
+  <div class="grid3">
+    <div class="feat"><div class="feat-ico">📊</div><h3>채널별 성과 통계</h3><p>팔로워·도달·참여율을 채널별로 한눈에. 어떤 콘텐츠가 먹히는지 바로 보입니다.</p></div>
+    <div class="feat"><div class="feat-ico">🗓️</div><h3>예약 발행 · 콘텐츠 캘린더</h3><p>글 한 번 쓰고 원하는 시간에 자동 발행. 이번 달 계획을 캘린더로 관리하세요.</p></div>
+    <div class="feat"><div class="feat-ico">🚀</div><h3>한 번에 여러 채널 발행</h3><p>같은 게시물을 인스타·틱톡·페북에 동시에. 복붙 지옥은 이제 끝.</p></div>
+    <div class="feat"><div class="feat-ico">💬</div><h3>통합 인박스</h3><p>모든 채널의 댓글·DM을 한 곳에서 확인하고 답장. 놓치는 문의가 없습니다.</p></div>
+    <div class="feat"><div class="feat-ico">⭐</div><h3>리뷰 모니터링</h3><p>구글·네이버 리뷰를 실시간으로. 평점 관리와 답변을 한 화면에서.</p></div>
+    <div class="feat"><div class="feat-ico">📅</div><h3>예약 · 문의 관리</h3><p>숙소·레슨·식당 예약을 상태별로. DM으로 들어온 문의도 예약으로 전환.</p></div>
+  </div>
+</div></section>
+
+<section class="section" id="biz" style="background:var(--surface-2)"><div class="wrap">
+  <div class="sec-h"><div class="k">FOR YOU</div><h2>이런 사장님께 딱</h2>
+    <p>해외에서 직접 뛰는 1인·소규모 사업자를 위해 만들었습니다.</p></div>
+  <div class="biz">
+    <div class="biz-card"><div class="biz-emoji">🏄</div><h4>서핑샵</h4><p>레슨 예약 · 데일리 파도</p></div>
+    <div class="biz-card"><div class="biz-emoji">🏠</div><h4>한인 숙소</h4><p>게스트하우스 · 예약</p></div>
+    <div class="biz-card"><div class="biz-emoji">🍲</div><h4>한식당</h4><p>메뉴 홍보 · 테이블 예약</p></div>
+    <div class="biz-card"><div class="biz-emoji">☕</div><h4>카페</h4><p>브런치 · 워케이션</p></div>
+  </div>
+</div></section>
+
+<section class="section" id="productivity"><div class="wrap">
+  <div class="prod">
+    <div class="big" id="p-hours">— <span>시간</span></div>
+    <h2>이번 달, 반복 작업에서 아낀 시간</h2>
+    <p>MOA가 멀티 채널 발행·예약·통합 인박스·리뷰 응대로 절약해 드린 시간입니다. 쓸수록 늘어납니다.</p>
+    <div class="prod-row" id="p-row"></div>
+  </div>
+</div></section>
+
+<section class="cta"><div class="wrap">
+  <h2>지금 바로 대시보드를 열어보세요</h2>
+  <p>데모 데이터가 준비되어 있어, 회원가입 없이 모든 기능을 직접 눌러볼 수 있습니다.</p>
+  <a class="btn btn-primary btn-lg" href="dashboard.html">MOA 대시보드 열기 →</a>
+</div></section>
+
+<footer>© 2026 MOA · 해외 거주 한인 사업자를 위한 통합 홍보 관리 · 데모 서비스</footer>
+
+<script>
+fetch('/api/productivity').then(r=>r.json()).then(d=>{
+  document.getElementById('p-hours').innerHTML = d.totalHours + ' <span>시간</span>';
+  document.getElementById('p-row').innerHTML = d.parts.map(p=>
+    `<div class="item"><div class="n">${Math.round(p.min/6)/10}h</div><div class="l">${p.key}</div></div>`).join('');
+}).catch(()=>{});
+</script>
+</body></html>
